@@ -1,6 +1,8 @@
 ﻿using ProxolabBackend.Domain.FightDetails;
 using ProxolabBackend.Domain.Models;
 using ProxolabBackend.Domain.Warriors.ValueObjects;
+using System.Security.Cryptography;
+using System.Threading;
 
 namespace ProxolabBackend.Domain.Warriors;
 
@@ -17,6 +19,9 @@ public class Warrior : AggregateRoot<WarriorId> {
         Attack = attack;
         Defance = defance;
         FightDetails = new HashSet<FightDetail>();
+
+
+        AddAPIKey();
     }
     private const Byte HealthMinValue = 80;
     private const Byte HealthMaxValue = 100;
@@ -40,7 +45,10 @@ public class Warrior : AggregateRoot<WarriorId> {
         Health = health;
     }
 
-    public void AddAPIKey(String apikey) {
-        APIKEY = apikey;
+    private void AddAPIKey() {
+        var key = new byte[new Random().Next(64, 128)];
+        using var generator = RandomNumberGenerator.Create();
+        generator.GetBytes(key);
+        APIKEY = Convert.ToBase64String(key);
     }
 }

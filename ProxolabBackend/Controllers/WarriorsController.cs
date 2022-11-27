@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProxolabBackend.Attributes;
 using ProxolabBackend.Contracts;
 using ProxolabBackend.Domain.FightDetails;
 using ProxolabBackend.Domain.Rounds;
@@ -41,13 +42,6 @@ public class WarriorsController : ControllerBase {
 
         if(isWarriorNameAlreadyTaken)
             return BadRequest("Savaþçý mevcut");
-
-        var key = new byte[32];
-        using var generator = RandomNumberGenerator.Create();
-        generator.GetBytes(key);
-        String apiKey = Convert.ToBase64String(key);
-        warrior.AddAPIKey(apiKey);
-
 
         _warriors.Add(warrior);
         CreateWarriorResponse response = new(warrior);
@@ -96,8 +90,16 @@ public class WarriorsController : ControllerBase {
     }
 
     [HttpGet("[action]")]
+    [XApiKey]
     public IActionResult GetAllWarriors() {
         return Ok(_warriors);
+    }
+
+    [HttpGet("[action]")]
+    [XApiKey]
+    public IActionResult GetMyWarriorWithApiKey() {
+        var warrior = _warriors.FirstOrDefault(x => x.APIKEY.Equals(HttpContext.Request.Headers["warrior-api-key"]));
+        return warrior is null ? BadRequest("Unauthorized") : Ok(warrior);
     }
 
 
