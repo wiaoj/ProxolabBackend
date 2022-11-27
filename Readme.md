@@ -3,7 +3,7 @@
 2WxnVNoQu2PI8oRc+JDNZPlFqUuCaLyWnQsXCOKpbmZl1i2+j3f36+Is3+3uMcCw8uzLpuDHQqS0A4ERWVmYA0/X7+crfFLWOmVys1Iris8=
 ```
 
-###fightwarrior endpointinde warrior-API-Key headeri ilgili savascinin keyine sahip olmalidir
+###fightwarrior ve GetMyWarriorWithApiKey endpointinde warrior-API-Key headeri ilgili savascinin keyine sahip olmalidir
 ```json
 "apikey": "Tv7G4uFR01qzaJlAFjufu2G/HEvskDTEmeIqUXNpGxOW4nVg3Wh11/zqoo14E41A3G0xy1Q2wJTdIkoMDCWmjfI=",
 ```

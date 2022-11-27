@@ -90,7 +90,6 @@ public class WarriorsController : ControllerBase {
     }
 
     [HttpGet("[action]")]
-    [XApiKey]
     public IActionResult GetAllWarriors() {
         return Ok(_warriors);
     }
@@ -104,6 +103,7 @@ public class WarriorsController : ControllerBase {
 
 
     [HttpGet("[action]/{request.Id}")]
+    [XApiKey]
     public IActionResult FightWarrior([FromRoute] FightWarriorRequest request) {
         Warrior? requestedWarrior = _warriors.FirstOrDefault(x => x.Id.Value.Equals(request.Id));
 
