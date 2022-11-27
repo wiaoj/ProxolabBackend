@@ -19,7 +19,7 @@ public sealed class FightDetail : AggregateRoot<FightDetailsId> {
     public DateTime FinishedTime { get; set; }
     public TimeSpan FightTime { get; set; }
     public ICollection<Round> Rounds { get; set; }
-
+    public Int32 TotalRounds { get; private set; }
     public WarriorId WinnerWarrior { get; set; }
     public static FightDetail Create(WarriorId matchedWarriorId, WarriorId startedWarriorId) {
         return new(FightDetailsId.CreateUnique, matchedWarriorId, startedWarriorId);
@@ -27,6 +27,7 @@ public sealed class FightDetail : AggregateRoot<FightDetailsId> {
 
     public Task AddRound(Round round) {
         Rounds.Add(round);
+        TotalRounds++;
         return Task.CompletedTask;
     }
 

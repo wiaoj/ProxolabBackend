@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 WebApplication app = builder.Build();
 
-app.UseMiddleware<ApiKeyMiddleware>();
+//app.UseMiddleware<ApiKeyMiddleware>();
 
 // Configure the HTTP request pipeline.
 if(app.Environment.IsDevelopment()) {
